@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class SqrsViewController: UIViewController {
     
     var arrOrSqrt: [UIView] = []
     
@@ -46,7 +46,8 @@ class ViewController: UIViewController {
         
         let timeInterval = newDate.timeIntervalSinceReferenceDate - date.timeIntervalSinceReferenceDate
         
-        let vc = UIAlertController(title: "Title", message: "game took \(timeInterval) seconds", preferredStyle: .actionSheet)
+        let vc = UIAlertController(title: "Title", message: "game took \(timeInterval) seconds", preferredStyle: .alert)
+        vc.overrideUserInterfaceStyle = .dark
         
         let action = UIAlertAction(title: "play again", style: .default) {_ in
             self.playAgain()
@@ -57,7 +58,7 @@ class ViewController: UIViewController {
             fatalError()
         }
         vc.addAction(exitAction)
-        
+                
         present(vc, animated: true)
     }
     
@@ -121,3 +122,21 @@ class ViewController: UIViewController {
 
 }
 
+struct Person {
+    let name: String
+}
+
+class Rounded: UIView {
+    
+    var radius: CGFloat = 0 {
+        didSet {
+            self.layer.cornerRadius = 32
+        }
+    }
+    
+    override func didMoveToSuperview() {
+        super.didMoveToSuperview()
+        
+        self.layer.cornerRadius = 32
+    }
+}

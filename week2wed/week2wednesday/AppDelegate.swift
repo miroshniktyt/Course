@@ -10,8 +10,6 @@ import UIKit
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
-
-
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         return true
@@ -40,14 +38,18 @@ struct UIConsts {
     static let buttonSize: CGSize = .init(width: 44, height: 44)
 }
 
-class RootViewController: UIViewController {
-    
-    @IBOutlet weak var button: UIButton!
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        button.center = view.center
+extension UIStoryboard {
+    static func getVC(vcName: String, storyName: String = "Main") -> UIViewController {
+        let story = UIStoryboard(name: storyName, bundle: nil)
+        let vc = story.instantiateViewController(withIdentifier: vcName)
+        return vc
     }
-    
+}
+
+extension String {
+    func getVC(storyName: String = "Main") -> UIViewController {
+        let story = UIStoryboard(name: storyName, bundle: nil)
+        let vc = story.instantiateViewController(withIdentifier: self)
+        return vc
+    }
 }
