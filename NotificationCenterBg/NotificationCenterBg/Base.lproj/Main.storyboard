@@ -12,7 +12,7 @@
         <!--Item 2-->
         <scene sceneID="x88-HJ-PoY">
             <objects>
-                <viewController id="eVf-co-XH0" customClass="ImageBgViewController" customModule="ReactionRate" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="eVf-co-XH0" customClass="ImageBgViewController" customModule="NotificationCenterBg" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="rcO-hj-UVT">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -22,6 +22,11 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" systemColor="systemBrownColor"/>
                             </view>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="sun.min.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="j9M-Ud-xML" customClass="SmartImageView" customModule="NotificationCenterBg" customModuleProvider="target">
+                                <rect key="frame" x="119" y="494" width="240" height="128"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="tintColor" systemColor="systemIndigoColor"/>
+                            </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="LOW-nz-wbr"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -30,12 +35,12 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Nx2-98-uVe" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-845" y="1076"/>
+            <point key="canvasLocation" x="-845.03816793893122" y="1075.3521126760563"/>
         </scene>
         <!--Item 1-->
         <scene sceneID="9uc-Xm-kSz">
             <objects>
-                <viewController id="YqE-OH-hj5" customClass="ImageBgViewController" customModule="ReactionRate" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="YqE-OH-hj5" customClass="ImageBgViewController" customModule="NotificationCenterBg" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="7qf-VB-F2x">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -60,6 +65,11 @@
                                     <segue destination="37q-OE-1Nq" kind="show" id="5fV-Ao-tSk"/>
                                 </connections>
                             </button>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="car.side.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="xZh-ou-ETr" customClass="SmartImageView" customModule="NotificationCenterBg" customModuleProvider="target">
+                                <rect key="frame" x="51" y="541" width="240" height="128"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="tintColor" systemColor="systemIndigoColor"/>
+                            </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="np6-0f-QBc"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -91,7 +101,7 @@
         <!--Image Bg View Controller-->
         <scene sceneID="cN0-VB-PQH">
             <objects>
-                <viewController id="zHv-Ar-vve" customClass="ImageBgViewController" customModule="ReactionRate" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="zHv-Ar-vve" customClass="ImageBgViewController" customModule="NotificationCenterBg" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Cae-Ux-OcD">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="783"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -118,7 +128,7 @@
         <!--Image Bg View Controller-->
         <scene sceneID="vwI-Ox-MGx">
             <objects>
-                <viewController id="TW7-vd-prK" customClass="ImageBgViewController" customModule="ReactionRate" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="TW7-vd-prK" customClass="ImageBgViewController" customModule="NotificationCenterBg" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="wrL-b0-7g8">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="783"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -137,12 +147,12 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pof-Cn-9G8" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="331" y="344"/>
+            <point key="canvasLocation" x="330.53435114503816" y="343.66197183098592"/>
         </scene>
         <!--Change View Controller-->
         <scene sceneID="Mwb-D4-ogt">
             <objects>
-                <viewController id="9LM-Rd-Vyg" customClass="ChangeViewController" customModule="ReactionRate" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="9LM-Rd-Vyg" customClass="ChangeViewController" customModule="NotificationCenterBg" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="GWh-Zm-ND8">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="783"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -171,6 +181,11 @@
                                     <action selector="change2:" destination="9LM-Rd-Vyg" eventType="touchUpInside" id="zt0-bW-73J"/>
                                 </connections>
                             </button>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="volume.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="wRY-Oc-Fgz" customClass="SmartImageView" customModule="NotificationCenterBg" customModuleProvider="target">
+                                <rect key="frame" x="39" y="113" width="240" height="128"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="tintColor" systemColor="systemIndigoColor"/>
+                            </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="snG-EW-5ew"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -202,6 +217,9 @@
         </scene>
     </scenes>
     <resources>
+        <image name="car.side.fill" catalog="system" width="128" height="58"/>
+        <image name="sun.min.fill" catalog="system" width="128" height="123"/>
+        <image name="volume.fill" catalog="system" width="128" height="125"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
@@ -210,6 +228,9 @@
         </systemColor>
         <systemColor name="systemCyanColor">
             <color red="0.19607843137254902" green="0.67843137254901964" blue="0.90196078431372551" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemIndigoColor">
+            <color red="0.34509803921568627" green="0.33725490196078434" blue="0.83921568627450982" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemRedColor">
             <color red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

@@ -9,7 +9,7 @@ import UIKit
 
 class ImageBgViewController: UIViewController {
     
-    let imageView: UIImageView = .init(image: UIImage(named: ImageBgManager.shared.defaultBg))
+    let imageView: UIImageView = .init(image: UIImage(named: ImageBgManager.shared.currentBg))
     
     override func viewDidLoad() {
         super.viewDidLoad()

@@ -28,10 +28,10 @@ class ImageBgManager {
     }
     
     func changeBg(to bgName: String) {
+        currentBg = bgName
+        
         NotificationCenter.default.post(
             name: .changeName,
             object: bgName)
-        
-        currentBg = bgName
     }
 }
