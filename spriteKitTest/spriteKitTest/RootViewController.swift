@@ -15,41 +15,60 @@ class RedScene: SKScene {
     let myCamera = SKCameraNode()
     
     override func didMove(to view: SKView) {
+        backgroundColor = .darkGray
         
-        self.camera = myCamera
+        self.anchorPoint.x = 0.5
         
-        self.anchorPoint = .init(x: 0.5, y: 0.5)
+        self.physicsWorld.gravity = .init(dx: 0, dy: 9)
         
-        let node = SKNode() // container
+        let sqr = SKShapeNode(rectOf: .init(width: 1000, height: 50))
+        sqr.fillColor = .red
+        self.addChild(sqr)
+        print(self.frame)
+        sqr.position.y = frame.maxY
+        sqr.position.x = frame.midX
+        sqr.physicsBody = .init(rectangleOf: sqr.frame.size)
+        sqr.physicsBody?.isDynamic = false
+        sqr.physicsBody?.friction = 1
+        sqr.physicsBody?.restitution = 1
         
-        let texture = SKTexture(imageNamed: "crl") // спарайт який майже завжди юзаєтся
-        let sprite = SKSpriteNode(texture: texture, color: .blue, size: .init(width: 90, height: 90))
-        self.addChild(sprite)
+        let sqns = SKAction.sequence([
+            .wait(forDuration: 1),
+            .run {
+                self.placeONRandom()
+            }
+        ])
         
-        shape.position.y -= 200
-        shape.fillColor = .blue
-        self.addChild(shape)
-        
-        let label = SKLabelNode(text: "")
-        
-        self.backgroundColor = .red
-        
+        self.run(.repeatForever(sqns))
+    }
+    
+    func placeONRandom() {
+        let position = CGPoint(x: .random(in: -100...100), y: .random(in: -100...100))
+        self.create(onPosition: position)
     }
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        let position = touches.first!.location(in: self)
+        create(onPosition: position)
+    }
+    
+    func create(onPosition: CGPoint) {
+        let r: CGFloat = 32
+        let crcl = SKShapeNode(rectOf: .init(width: r, height: r))
+        crcl.fillColor = .blue
         
-        let spac: CGFloat = 50
-        let sqns = SKAction.sequence([
-            SKAction.move(by: .init(dx: spac, dy: spac), duration: 0.2),
-            SKAction.move(by: .init(dx: spac, dy: -spac), duration: 0.2),
-            SKAction.move(by: .init(dx: spac, dy: -spac), duration: 0.2),
-            .scale(to: 0.5, duration: 0.2),
-            .move(to: .zero, duration: 0.2),
-        ])
+        crcl.position = onPosition
+        self.addChild(crcl)
         
-        shape.run(SKAction.repeatForever(sqns))
+        crcl.physicsBody = .init(circleOfRadius: r)
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        let position = touches.first!.location(in: self)
+        if let node = self.nodes(at: position).first {
+            node.physicsBody = nil
+        }
         
-        myCamera.run(.scaleX(to: 5, duration: 5))
     }
 }
 
@@ -57,13 +76,26 @@ class RootViewController: UIViewController {
     
     @IBOutlet weak var skView: SKView!
     
+    let scene = RedScene(size: .zero)
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let scene = RedScene(size: .init(width: 2000, height: 2000))
+        scene.scaleMode = .resizeFill
         self.skView.presentScene(scene)
-//        scene.scaleMode = .resizeFill
+//        skView.showsPhysics = true
+//        skView.showsFPS = true
+        skView.showsNodeCount = true
         
         self.view.backgroundColor = .black
+    }
+    
+    @IBAction func pouseed(_ sender: Any) {
+        scene.isPaused.toggle()
+    }
+    
+    @IBAction func sliderMoved(_ sender: Any) {
+        let slider = (sender as! UISlider)
+        scene.speed = CGFloat(slider.value)
     }
 }
