@@ -8,81 +8,123 @@
 import SpriteKit
 import GameplayKit
 
+
+struct BitMasks {
+    static let player: UInt32 = 1
+    static let bonus: UInt32 = 2
+    static let enemy: UInt32 = 4
+}
+
 class GameScene: SKScene {
     
-    private var label : SKLabelNode?
-    private var spinnyNode : SKShapeNode?
+    var score = 0 {
+        didSet {
+            label.text = "score : \(score)"
+        }
+    }
     
+    let player = SKSpriteNode(texture: SKTexture(imageNamed: "player"), color: .blue, size: .init(width: 44, height: 44))
+    
+    let label = SKLabelNode()
+    
+    var isMovingRIght = true
+
     override func didMove(to view: SKView) {
+        self.anchorPoint.x = 0.5
         
-        // Get label node from scene and store it for use later
-        self.label = self.childNode(withName: "//helloLabel") as? SKLabelNode
-        if let label = self.label {
-            label.alpha = 0.0
-            label.run(SKAction.fadeIn(withDuration: 2.0))
-        }
+        score = 0
+                
+        player.position.y = self.frame.height / 4
+        self.addChild(player)
         
-        // Create shape node to use during mouse interaction
-        let w = (self.size.width + self.size.height) * 0.05
-        self.spinnyNode = SKShapeNode.init(rectOf: CGSize.init(width: w, height: w), cornerRadius: w * 0.3)
+        player.physicsBody = .init(rectangleOf: player.frame.size)
+        player.physicsBody?.affectedByGravity = false
+        player.physicsBody?.isDynamic = false
+//        player.physicsBody?.categoryBitMask = BitMasks.player
+        player.physicsBody?.collisionBitMask = 0
+        player.physicsBody?.contactTestBitMask = BitMasks.bonus
+
+        let sqns = SKAction.sequence([
+            SKAction.wait(forDuration: 0.5),
+            SKAction.run { self.putSomthing() },
+        ])
+        self.run(SKAction.repeatForever(sqns))
         
-        if let spinnyNode = self.spinnyNode {
-            spinnyNode.lineWidth = 2.5
-            
-            spinnyNode.run(SKAction.repeatForever(SKAction.rotate(byAngle: CGFloat(Double.pi), duration: 1)))
-            spinnyNode.run(SKAction.sequence([SKAction.wait(forDuration: 0.5),
-                                              SKAction.fadeOut(withDuration: 0.5),
-                                              SKAction.removeFromParent()]))
-        }
+        addChild(label)
+        label.position.y = 32
+        
+        physicsWorld.gravity = .init(dx: 0, dy: -5)
+        physicsWorld.contactDelegate = self
     }
-    
-    
-    func touchDown(atPoint pos : CGPoint) {
-        if let n = self.spinnyNode?.copy() as! SKShapeNode? {
-            n.position = pos
-            n.strokeColor = SKColor.green
-            self.addChild(n)
-        }
-    }
-    
-    func touchMoved(toPoint pos : CGPoint) {
-        if let n = self.spinnyNode?.copy() as! SKShapeNode? {
-            n.position = pos
-            n.strokeColor = SKColor.blue
-            self.addChild(n)
-        }
-    }
-    
-    func touchUp(atPoint pos : CGPoint) {
-        if let n = self.spinnyNode?.copy() as! SKShapeNode? {
-            n.position = pos
-            n.strokeColor = SKColor.red
-            self.addChild(n)
-        }
-    }
-    
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        if let label = self.label {
-            label.run(SKAction.init(named: "Pulse")!, withKey: "fadeInOut")
+        
+    override func update(_ currentTime: TimeInterval) {
+        
+        let playerSpeed: CGFloat = 4
+        player.position.x += isMovingRIght ? playerSpeed : -playerSpeed
+
+        if player.position.x > frame.maxX || player.position.x < frame.minX {
+            isMovingRIght.toggle()
         }
         
-        for t in touches { self.touchDown(atPoint: t.location(in: self)) }
     }
     
-    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
-        for t in touches { self.touchMoved(toPoint: t.location(in: self)) }
+    func putSomthing() {
+        
+        let isStar = [true, true, true, false].randomElement()!
+        
+        putItem(isStar: isStar)
+    }
+    
+    func putItem(isStar: Bool) {
+        let bomb = SKShapeNode(circleOfRadius: 16)
+        bomb.fillColor = isStar ? .yellow : .red
+        bomb.position.y = frame.maxY
+        bomb.position.x = .random(in: frame.minX...frame.maxX)
+        
+        bomb.physicsBody = .init(circleOfRadius: bomb.frame.width / 2)
+        bomb.physicsBody?.categoryBitMask = isStar ? BitMasks.bonus : BitMasks.enemy
+        bomb.physicsBody?.contactTestBitMask = BitMasks.player
+//        bonus.physicsBody?.collisionBitMask = 0
+        
+        self.addChild(bomb)
     }
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        for t in touches { self.touchUp(atPoint: t.location(in: self)) }
+        self.isMovingRIght.toggle()
     }
     
-    override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
-        for t in touches { self.touchUp(atPoint: t.location(in: self)) }
+}
+
+
+extension GameScene: SKPhysicsContactDelegate {
+    
+    func didBegin(_ contact: SKPhysicsContact) {
+        print("yes contact")
+        
+        if contact.bodyA.categoryBitMask == BitMasks.bonus {
+            let body = contact.bodyA
+            body.node?.removeFromParentWithParticles()
+            score += 1
+        } else if contact.bodyB.categoryBitMask == BitMasks.bonus {
+            let body = contact.bodyB
+            body.node?.removeFromParentWithParticles()
+            score += 1
+        }
+        
+        if contact.bodyA.categoryBitMask == BitMasks.enemy {
+            fatalError()
+        } else if contact.bodyB.categoryBitMask == BitMasks.enemy {
+            fatalError()
+        }
+        
     }
-    
-    
-    override func update(_ currentTime: TimeInterval) {
-        // Called before each frame is rendered
+}
+
+extension SKNode {
+    func removeFromParentWithParticles(particlesName: String = "maggic") {
+        let part = SKEmitterNode(fileNamed: particlesName)!
+        part.position = self.position
+        self.position.addChild(part)
+        self.removeFromParent()
     }
 }
