@@ -13,6 +13,7 @@ struct BitMasks {
     static let player: UInt32 = 1
     static let bonus: UInt32 = 2
     static let enemy: UInt32 = 4
+    static let floor: UInt32 = 8
 }
 
 class GameScene: SKScene {
@@ -33,16 +34,21 @@ class GameScene: SKScene {
         self.anchorPoint.x = 0.5
         
         score = 0
+        
+        let floor = SKShapeNode(rectOf: .init(width: frame.width - 64, height: 16))
+        floor.fillColor = .gray
+        floor.position.y = 96
+        floor.physicsBody = .init(rectangleOf: floor.frame.size)
+        floor.physicsBody?.isDynamic = false
+        floor.physicsBody?.affectedByGravity = false
+        floor.physicsBody?.categoryBitMask = BitMasks.floor
+        self.addChild(floor)
                 
         player.position.y = self.frame.height / 4
-        self.addChild(player)
-        
         player.physicsBody = .init(rectangleOf: player.frame.size)
-        player.physicsBody?.affectedByGravity = false
-        player.physicsBody?.isDynamic = false
-//        player.physicsBody?.categoryBitMask = BitMasks.player
-        player.physicsBody?.collisionBitMask = 0
+        player.physicsBody?.categoryBitMask = BitMasks.player
         player.physicsBody?.contactTestBitMask = BitMasks.bonus
+        self.addChild(player)
 
         let sqns = SKAction.sequence([
             SKAction.wait(forDuration: 0.5),
@@ -116,15 +122,14 @@ extension GameScene: SKPhysicsContactDelegate {
         } else if contact.bodyB.categoryBitMask == BitMasks.enemy {
             fatalError()
         }
-        
     }
 }
 
 extension SKNode {
     func removeFromParentWithParticles(particlesName: String = "maggic") {
-        let part = SKEmitterNode(fileNamed: particlesName)!
+        let part = SKEmitterNode(fileNamed: "maggic")!
         part.position = self.position
-        self.position.addChild(part)
+        self.parent?.addChild(part)
         self.removeFromParent()
     }
 }
