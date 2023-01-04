@@ -16,6 +16,10 @@ struct BitMasks {
     static let floor: UInt32 = 8
 }
 
+class Bonus: SKSpriteNode {
+    
+}
+
 class GameScene: SKScene {
     
     var score = 0 {
@@ -61,6 +65,18 @@ class GameScene: SKScene {
         
         physicsWorld.gravity = .init(dx: 0, dy: -5)
         physicsWorld.contactDelegate = self
+        
+        let sqns2 = SKAction.sequence([
+            SKAction.wait(forDuration: 2),
+            SKAction.run { self.checkItemsOut() },
+        ])
+        self.run(SKAction.repeatForever(sqns2))
+    }
+    
+    func checkItemsOut() {
+        self.children.forEach { node in
+            node.position.y < frame.minY - 100
+        }
     }
         
     override func update(_ currentTime: TimeInterval) {
@@ -106,14 +122,16 @@ extension GameScene: SKPhysicsContactDelegate {
     
     func didBegin(_ contact: SKPhysicsContact) {
         print("yes contact")
-        
+                
         if contact.bodyA.categoryBitMask == BitMasks.bonus {
             let body = contact.bodyA
             body.node?.removeFromParentWithParticles()
             score += 1
         } else if contact.bodyB.categoryBitMask == BitMasks.bonus {
             let body = contact.bodyB
-            body.node?.removeFromParentWithParticles()
+            let node = body.node
+            let bonus = node as? SKSpriteNode
+            node?.removeFromParentWithParticles()
             score += 1
         }
         
