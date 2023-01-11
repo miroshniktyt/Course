@@ -14,6 +14,7 @@
 		637A7B9D29657BAD0047B194 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 637A7B9C29657BAD0047B194 /* Assets.xcassets */; };
 		637A7BA029657BAD0047B194 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 637A7B9E29657BAD0047B194 /* LaunchScreen.storyboard */; };
 		637A7BA72965F5800047B194 /* Bet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 637A7BA62965F5800047B194 /* Bet.swift */; };
+		63A44256296DBC2C00A4C447 /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A44255296DBC2C00A4C447 /* MenuViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -25,6 +26,7 @@
 		637A7B9C29657BAD0047B194 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		637A7B9F29657BAD0047B194 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		637A7BA62965F5800047B194 /* Bet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bet.swift; sourceTree = "<group>"; };
+		63A44255296DBC2C00A4C447 /* MenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,6 +62,7 @@
 				637A7B8F29657BAB0047B194 /* AppDelegate.swift */,
 				637A7B9529657BAB0047B194 /* GameScene.swift */,
 				637A7BA62965F5800047B194 /* Bet.swift */,
+				63A44255296DBC2C00A4C447 /* MenuViewController.swift */,
 				637A7B9729657BAB0047B194 /* GameViewController.swift */,
 				637A7B9929657BAB0047B194 /* Main.storyboard */,
 				637A7B9C29657BAD0047B194 /* Assets.xcassets */,
@@ -140,6 +143,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				637A7B9629657BAB0047B194 /* GameScene.swift in Sources */,
+				63A44256296DBC2C00A4C447 /* MenuViewController.swift in Sources */,
 				637A7B9829657BAB0047B194 /* GameViewController.swift in Sources */,
 				637A7B9029657BAB0047B194 /* AppDelegate.swift in Sources */,
 				637A7BA72965F5800047B194 /* Bet.swift in Sources */,
